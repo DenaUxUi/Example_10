@@ -18,8 +18,12 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: "/ansible/playbook.yml"
+        source: "ansible/playbook.yml"  # Убедитесь, что путь правильный
         target: "~/playbook.yml"
+
+    - name: Check if playbook was copied
+      run: |
+        ls -l ~/playbook.yml  # Проверим, что файл на сервере
 
     - name: Install Ansible and run playbook
       uses: appleboy/ssh-action@v1.0.0
