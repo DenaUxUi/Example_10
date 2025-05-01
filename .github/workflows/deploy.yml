@@ -21,13 +21,14 @@ jobs:
         source: "ansible/deploy.yml"
         target: "~/deploy.yml"
 
-    - name: Run Ansible playbook
+    - name: Install Ansible and run playbook
       uses: appleboy/ssh-action@v1.0.0
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          sudo apt update && sudo apt install -y ansible git
-          ansible-playbook ~/deploy.yml -i 'localhost,' -c local
+          sudo apt update
+          sudo apt install -y ansible
+          ansible-playbook ~/deploy.yml -i localhost, --connection=local
 
