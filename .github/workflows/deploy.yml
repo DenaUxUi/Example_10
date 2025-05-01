@@ -19,7 +19,7 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         source: "../../ansible/playbook.yml"
-        target: "~/deploy.yml"
+        target: "~/playbook.yml"
 
     - name: Install Ansible and run playbook
       uses: appleboy/ssh-action@v1.0.0
