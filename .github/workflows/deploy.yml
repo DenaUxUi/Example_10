@@ -20,7 +20,7 @@ jobs:
     - name: Copy Ansible playbook to server
       uses: appleboy/scp-action@v0.1.7
       with:
-        host: 92.62.70.31
+        host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         source: "/Ansible/"  # Убедитесь, что путь правильный
