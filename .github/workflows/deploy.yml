@@ -23,7 +23,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: "../../Ansible/"  # Убедитесь, что путь правильный
+        source: "~/Ansible/playbook.yml"  # Убедитесь, что путь правильный
         target: "~/playbook.yml"
 
 
