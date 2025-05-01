@@ -20,6 +20,14 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         source: "ansible/playbook.yml"  # Убедитесь, что путь правильный
         target: "~/playbook.yml"
+    
+
+    - name: Check environment variables
+      run: |
+        echo "Host: ${{ secrets.HOST }}"
+        echo "User: ${{ secrets.USER }}"
+
+
 
     - name: Check if playbook was copied
       run: |
