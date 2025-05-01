@@ -16,7 +16,6 @@ jobs:
       run: |
         echo "Host: ${{ secrets.HOST }}"
         echo "User: ${{ secrets.USER }}"
-        echo "All: ${{ secrets }}"
 
     - name: Copy Ansible playbook to server
       uses: appleboy/scp-action@v0.1.7
@@ -24,7 +23,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: "ansible/playbook.yml"  # Убедитесь, что путь правильный
+        source: "ansible/"  # Убедитесь, что путь правильный
         target: "~/playbook.yml"
 
 
