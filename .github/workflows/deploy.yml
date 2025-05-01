@@ -12,6 +12,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    - name: Check environment variables
+      run: |
+        echo "Host: ${{ secrets.HOST }}"
+        echo "User: ${{ secrets.USER }}"
+
+
     - name: Copy Ansible playbook to server
       uses: appleboy/scp-action@v0.1.7
       with:
@@ -20,12 +26,6 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         source: "ansible/playbook.yml"  # Убедитесь, что путь правильный
         target: "~/playbook.yml"
-    
-
-    - name: Check environment variables
-      run: |
-        echo "Host: ${{ secrets.HOST }}"
-        echo "User: ${{ secrets.USER }}"
 
 
 
