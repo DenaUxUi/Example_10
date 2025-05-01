@@ -12,11 +12,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Check environment variables
-      run: |
-        echo "Host: ${{ secrets.HOST }}"
-        echo "User: ${{ secrets.USER }}"
-
     - name: Copy Ansible playbook to server
       uses: appleboy/scp-action@v0.1.7
       with:
@@ -41,5 +36,5 @@ jobs:
         script: |
           sudo apt update
           sudo apt install -y ansible
-          ansible-playbook ~/playbook.yml -i localhost, --connection=local
+          ansible-playbook ~/playbook.yml -i 92.62.70.31
 
