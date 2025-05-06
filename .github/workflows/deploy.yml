@@ -1,8 +1,9 @@
-name: CI/CD for Go App with Ansible
+name: CI/CD Deploy to Timeweb via SSH with Password
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   deploy:
@@ -12,29 +13,18 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Copy Ansible playbook to server
-      uses: appleboy/scp-action@v0.1.7
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: "ansible/playbook.yml"  # Убедитесь, что путь правильный
-        target: "~/playbook.yml"
+    - name: Install sshpass
+      run: sudo apt-get update && sudo apt-get install -y sshpass
 
-
-
-    - name: Check if playbook was copied
+    - name: Copy Ansible playbook to server via sshpass
       run: |
-        ls -l ~/playbook.yml  # Проверим, что файл на сервере
+        sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no ansible/playbook.yml ${{ secrets.USER }}@${{ secrets.HOST }}:/home/${{ secrets.USER }}/playbook.yml
 
-    - name: Install Ansible and run playbook
-      uses: appleboy/ssh-action@v1.0.0
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
+    - name: Run Ansible playbook on server via sshpass
+      run: |
+        sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST }} << 'EOF'
           sudo apt update
           sudo apt install -y ansible
-          ansible-playbook ~/playbook.yml -i 92.62.70.31
+          ansible-playbook ~/playbook.yml -i localhost,
+        EOF
 
