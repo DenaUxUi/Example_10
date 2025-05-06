@@ -18,7 +18,7 @@ jobs:
 
     - name: Copy Ansible playbook to server via sshpass
       run: |
-        sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no ansible/playbook.yml ${{ secrets.USER }}@${{ secrets.HOST }}:/home/${{ secrets.USER }}/playbook.yml
+        sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no ansible/playbook.yml ${{ secrets.USER }}@${{ secrets.HOST }}:/home/c/co71624/playbook.yml
 
     - name: Run Ansible playbook on server via sshpass
       run: |
